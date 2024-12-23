@@ -1,5 +1,6 @@
 # Winter-Mini-Project
 Welcome to my image classification project to learn ML better
+Estimated sessions required for completion (Each one roughly 2 hours): 20 Sessions
 
 Session Log:
 
@@ -14,3 +15,4 @@ Session Log:
         -Installed Anaconda and used a conda VE. Installed python and pytorch onto the VE
     -Committed code to convert image to tensor
     -Created this file
+    -PyTorch tutorial

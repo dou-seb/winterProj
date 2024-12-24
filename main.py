@@ -16,6 +16,7 @@ class WildcatDataset(Dataset):
         Args:
             csv_file (string): Path to the csv file with image data.
             root_dir (string): Directory with all the images.
+            dataset_type (string): Filter for what section of the database is used for what purpose
             transform (callable, optional): Optional transform to be applied on a sample.
         """
         self.data_frame = pd.read_csv(csv_file) #gets csv and reads it
@@ -52,6 +53,10 @@ print(ImgTensor.shape)
 """
 
 class BigCatModel(nn.Module):
+    """
+    Args:
+        nn.Module (library call)
+    """
     def __init__(self):
         super().__init__()
         self.conv1 = nn.Conv2d(3, 32, kernel_size=(3, 3), stride=1, padding=1)

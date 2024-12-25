@@ -39,7 +39,5 @@ References used:
     - https://pytorch.org/tutorials/beginner/data_loading_tutorial.html
     - https://deeplizard.com/learn/video/Zi-0rlM4RDs#:~:text=The%20training%20set%20is%20what%20it%20sounds%20like.
     
+NOTE: ChatGPT was used in aiding in the understanding of concepts for CNNs and understanding the function of sections of code used in referenced resources
 
-NOTE: ChatGPT was used in aiding in the understanding of concepts for CNNs and understanding the function of sections of code used in referenced resources. 
-=======
-    -PyTorch tutorial

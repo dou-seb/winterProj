@@ -41,3 +41,9 @@ References used:
     
 NOTE: ChatGPT was used in aiding in the understanding of concepts for CNNs and understanding the function of sections of code used in referenced resources
 
+Libraries required for running (copy and paste into terminal):
+
+pip install torch
+pip install torchvision
+pip install pillow
+pip install pandas

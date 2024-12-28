@@ -27,30 +27,26 @@ class WildcatDataset(Dataset):
         # Filter the data based on the 'dataset' column
         self.data_frame = self.data_frame[self.data_frame['data set'] == self.dataset_type]
 
+        #Converts the labels that determine what something is (AFRICAN LEOPARD, etc) into a unique number to perform 
+        # Create a mapping from labels to numeric class indices
+        self.label_to_idx = {label: idx for idx, label in enumerate(self.data_frame['labels'].unique())}
+
+        # Add a new column with numeric labels
+        self.data_frame['numeric_label'] = self.data_frame['labels'].map(self.label_to_idx)
+
     def __len__(self):
         return len(self.data_frame) #returns the number of rows in the csv
 
     def __getitem__(self, idx):
-        img_name = os.path.join(self.root_dir, self.data_frame.iloc[idx, 1])  # grabs the filepath column from the csv
-        image = Image.open(img_name).convert('RGB')  # Load image and converts into RGB values from grabbed filepath
-        label = torch.tensor(self.data_frame.iloc[idx, 2], dtype=torch.long)  # gets the label from the label column of the csv
+        img_name = os.path.join(self.root_dir, self.data_frame.iloc[idx, 1]) # grabs the filepath column from the csv
+        image = Image.open(img_name).convert('RGB') # Load image and converts into RGB values from grabbed filepath
+        label = torch.tensor(self.data_frame.iloc[idx]['numeric_label'], dtype=torch.long) # gets the numeric version of the label from the label column of the csv
         
         if self.transform:
             image = self.transform(image)
 
         return image, label
 
-
-
-"""
-#Receiving a singular image from the training dataset to begin with
-#Converts image to tensor
-img_path = r'C:\Users\Sebastien Douse\Documents\GitHub\Winter-Mini-Project\cats-in-the-wild-image-classification\versions\1\train\AFRICAN LEOPARD\001.jpg'
-image = Image.open(img_path)
-transform = transforms.ToTensor()
-ImgTensor = transform(image)
-print(ImgTensor.shape)
-"""
 
 class BigCatModel(nn.Module):
     """
@@ -108,12 +104,6 @@ train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 valid_loader = DataLoader(valid_dataset, batch_size=32, shuffle=False)
 test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
-"""
-# Example: Getting one batch of images and labels
-for images, labels in train_loader:
-    print(images.size(), labels.size())
-    break
-"""
 #Creates the model
 model = BigCatModel()
 

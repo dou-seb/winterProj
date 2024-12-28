@@ -41,7 +41,8 @@ class WildcatDataset(Dataset):
         img_name = os.path.join(self.root_dir, self.data_frame.iloc[idx, 1]) # grabs the filepath column from the csv
         image = Image.open(img_name).convert('RGB') # Load image and converts into RGB values from grabbed filepath
         label = torch.tensor(self.data_frame.iloc[idx]['numeric_label'], dtype=torch.long) # gets the numeric version of the label from the label column of the csv
-        
+        print(idx)
+
         if self.transform:
             image = self.transform(image)
 
@@ -77,6 +78,9 @@ class BigCatModel(nn.Module):
 
     def forward(self, x):
         x = self.act1(self.conv1(x))
+        print(x)
+        print(f"NaNs in tensor: {torch.isnan(x).any()}, Infs in tensor: {torch.isinf(x).any()}")
+        print(x.shape)
         x = self.drop1(x)
         x = self.act2(self.conv2(x))
         x = self.pool2(x)
@@ -100,9 +104,9 @@ train_dataset = WildcatDataset(csv_file=r'cats-in-the-wild-image-classification\
 valid_dataset = WildcatDataset(csv_file=r'cats-in-the-wild-image-classification\versions\1\WILDCATS.csv', root_dir=r'cats-in-the-wild-image-classification\versions\1', dataset_type='valid', transform=transform)
 test_dataset = WildcatDataset(csv_file=r'cats-in-the-wild-image-classification\versions\1\WILDCATS.csv', root_dir=r'cats-in-the-wild-image-classification\versions\1', dataset_type='test', transform=transform)
 
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-valid_loader = DataLoader(valid_dataset, batch_size=32, shuffle=False)
-test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
+train_loader = DataLoader(train_dataset, batch_size=16, shuffle=False)
+valid_loader = DataLoader(valid_dataset, batch_size=16, shuffle=False)
+test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False)
 
 #Creates the model
 model = BigCatModel()

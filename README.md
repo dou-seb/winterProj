@@ -1,5 +1,7 @@
 # Winter-Mini-Project
 Welcome to my image classification project to learn ML better
+Deep learning can be very CPU intensive and memory intensive so a PC with a GPU and/or with a good amount of memory is strongly recommended for the running of this projects main code
+It also uses the CUDA Deep Learning Network libraries witch will need to be installed for optimal training speed of the model.
 
 Session Log:
 
@@ -47,3 +49,4 @@ pip install torch
 pip install torchvision
 pip install pillow
 pip install pandas
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
